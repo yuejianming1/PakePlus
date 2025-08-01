@@ -202,25 +202,6 @@ export const chageTheme = async (theme: string) => {
     }
 }
 
-// support pakeplus
-export const supportPP = async () => {
-    try {
-        const token = localStorage.getItem('token')
-        if (isTauri && token) {
-            await invoke('support_pp', {
-                token,
-            })
-        } else if (token) {
-            await githubApi.followingUser()
-            await githubApi.startProgect('PakePlus')
-            await githubApi.startProgect('PakePlus-Android')
-            await githubApi.startProgect('PakePlus-iOS')
-        }
-    } catch (error) {
-        console.error('supportPP error', error)
-    }
-}
-
 // 查询系统
 export const getOS = () => {
     const userAgent = window.navigator.userAgent
@@ -1130,16 +1111,6 @@ export const createIssue = async (
     repo: string
 ) => {
     console.log('createIssue', url, label, title)
-    await githubApi.createIssue({
-        body: `build name: ${name}\r
-        show name: ${showName}\r
-        build state: ${label}\r
-        build type: ${isHtml ? 'html' : 'web'}\r
-        client type: ${repo}\r
-        pakeplus type: ${isTauri ? 'tauri' : 'web'}\r
-        build action: ${url}`,
-        title: title,
-    })
 }
 
 // check last publish date
